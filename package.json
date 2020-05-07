@@ -1,15 +1,20 @@
 {
-  "name": "node-api-boilerplate",
+  "name": "dockerized-node-api-boilerplate",
   "version": "1.1.1",
-  "description": "A boilerplate for web APIs using Node",
+  "description": "Dockerized version of talyssonoc/node-api-boilerplate",
   "main": "index.js",
   "private": true,
   "engines": {
-    "node": ">=7.6.0"
+    "node": "10.x"
   },
   "scripts": {
-    "start": "node cluster.js",
-    "dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
+    "start": "NODE_ENV=production npm run dbsync && node cluster.js",
+    "dev": "cross-env NODE_PATH=. NODE_ENV=development npm run dbsync && nodemon",
+    "dbmigrate": "sequelize db:migrate",
+    "dbseedall": "sequelize db:seed:all",
+    "dbsync": "npm run dbmigrate && npm run dbseedall",
+    "docker-build-api-image": "docker build -t node-api-boilerplate-production .",
+    "deploy": "npm run docker-build-api-image && docker-compose up",
     "test": "npm run test:all",
     "test:all": "npm run test:unit && npm run test:features",
     "test:unit": "cross-env NODE_PATH=. NODE_ENV=test mocha --opts test/mocha.opts.unit",
@@ -23,7 +28,7 @@
     "cleanup": "node scripts/cleanup.js"
   },
   "repository": {},
-  "author": "Talysson <talyssonoc@gmail.com>",
+  "author": "inspectorr <hmrfins@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "awilix": "^3.0.9",
@@ -34,7 +39,7 @@
     "cross-env": "^3.2.3",
     "del": "^2.2.2",
     "dotenv": "^4.0.0",
-    "eslint": "^4.7.2",
+    "eslint": "^6.8.0",
     "express": "^4.15.2",
     "express-status-monitor": "^0.1.9",
     "http-status": "^1.0.1",

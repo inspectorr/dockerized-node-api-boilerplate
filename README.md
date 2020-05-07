@@ -1,4 +1,15 @@
-# Node API boilerplate
+# Dockerized Node API boilerplate
+This is the dockerized version of talyssonoc/node-api-boilerplate.
+You can see the original documentation below.
+
+# Production deployment with Docker
+1) Install docker and docker-compose on your production server.
+2) Run `yarn deploy` 
+
+This will set up PostgreSQL database and Node.js server in docker containers, compose it,
+run database migrations and seeds (only new files) and start api on port 3000.
+ 
+# Node API boilerplate (original docs)
 
 An opinionated boilerplate for Node web APIs focused on separation of concerns and scalability.
 
